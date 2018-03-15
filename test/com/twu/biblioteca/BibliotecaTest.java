@@ -28,4 +28,18 @@ public class BibliotecaTest {
 
 
     }
+
+    @Test
+    public void testGetBookDetails(){
+
+        BibliotecaApp biblioteca=new BibliotecaApp();
+
+        assertEquals("JK Rowling\n" +
+                "1997\n",biblioteca.getBookDetails(0));
+
+
+
+    }
+
+
 }

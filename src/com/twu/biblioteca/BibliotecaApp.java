@@ -7,12 +7,12 @@ public class BibliotecaApp {
     String[][] listOfBooks = {{"Harry Potter", "JK Rowling","1997","not available"},
             {"The Hobbit", "Tolkien","1937","available"}};
 
-    public static void main(String[] args) {
+    public static void main(String args) {
 
-        System.out.println("Welcome to Biblioteca!\nPress the option:\n1-List of Books\n2-Checkout Book\n3-Return Book\n3-Quit");
+
+        System.out.println("Welcome to Biblioteca!\nMenu:\n1-List of Books\n2-Checkout Book\n3-Return Book\n3-Quit\nType your option:");
         Scanner scanIn =new Scanner(System.in);
         int option= scanIn.nextInt();
-
         BibliotecaApp biblioteca=new BibliotecaApp();
 
         biblioteca.Menu(option);
@@ -22,8 +22,11 @@ public class BibliotecaApp {
 
 
     public String Menu(int option) {
+
+
+
         switch (option){
-            case 1: return "List of Books";
+            case 1: callListOfBooksApp(); return "List of Books";
             case 2: return "Checkout a book";
             case 3: System.exit(0);
             default: return "Invalid Option!";
@@ -43,4 +46,23 @@ public class BibliotecaApp {
 
         return list.toString();
     }
+
+
+    public String getBookDetails(int bookCode) {
+
+
+        StringBuilder bookDetail=new StringBuilder();
+
+        for(int i=1; i<listOfBooks[bookCode].length-1;i++)
+        {
+                bookDetail.append(listOfBooks[bookCode][i]).append("\n");
+
+        }
+
+        System.out.print(bookDetail.toString());
+
+        return bookDetail.toString();
+    }
+
+
 }
