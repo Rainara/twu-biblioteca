@@ -59,11 +59,12 @@ public class BibliotecaTest {
     }
 
     @Test
-    public void testReturnBook(){
+    public void testReturnItem(){
 
         BibliotecaApp biblioteca = new BibliotecaApp();
 
-        assertEquals("available",biblioteca.returnBook(1));
+        assertEquals("available",biblioteca.returnItem(1,biblioteca.listOfBooks));
+        assertEquals("available",biblioteca.returnItem(1,biblioteca.listOfMovies));
 
     }
 
