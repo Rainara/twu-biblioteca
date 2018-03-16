@@ -52,6 +52,17 @@ public class BibliotecaTest {
 
     }
 
+    @Test
+    public void testReturnBook(){
+
+        BibliotecaApp biblioteca = new BibliotecaApp();
+
+        assertEquals("available",biblioteca.returnBook(1));
+
+
+
+    }
+
 
 
 

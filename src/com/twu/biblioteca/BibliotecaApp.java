@@ -4,8 +4,8 @@ import java.util.Scanner;
 
 public class BibliotecaApp {
 
-    String[][] listOfBooks = {{"Harry Potter", "JK Rowling","1997","not available"},
-            {"The Hobbit", "Tolkien","1937","available"}};
+    String[][] listOfBooks = {{"Harry Potter", "JK Rowling","1997","available"},
+            {"The Hobbit", "Tolkien","1937","not available"}};
 
     public static void main(String args) {
 
@@ -68,11 +68,23 @@ public class BibliotecaApp {
     public String checkoutBook(int bookCode) {
 
         if(listOfBooks[bookCode][listOfBooks.length+1].equals("available"))
-            listOfBooks[bookCode][listOfBooks.length+1]="not availanle";
+            listOfBooks[bookCode][listOfBooks.length+1]="not available";
+        else
+            return "That book is not available.";
 
         return listOfBooks[bookCode][listOfBooks.length+1];
     }
 
 
-    
+    public String returnBook(int bookCode) {
+
+        if(listOfBooks[bookCode][listOfBooks.length+1].equals("not available"))
+            listOfBooks[bookCode][listOfBooks.length+1]="available";
+        else
+            return "That book is not available to return.";
+
+        return listOfBooks[bookCode][listOfBooks.length+1];
+
+
+    }
 }
