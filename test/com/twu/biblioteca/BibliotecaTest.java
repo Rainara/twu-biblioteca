@@ -78,6 +78,26 @@ public class BibliotecaTest {
     }
 
 
+    @Test
+    public void testUserLogin(){
+
+        BibliotecaApp biblioteca= new BibliotecaApp();
+
+        assertEquals(true,biblioteca.Login("123-4567","admin123"));
+
+
+    }
+
+    @Test
+    public void testUserInformation(){
+
+        BibliotecaApp biblioteca= new BibliotecaApp();
+
+        assertEquals("","");
+
+    }
+
+
 
 
 

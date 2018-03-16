@@ -6,10 +6,14 @@ import java.util.Scanner;
 public class BibliotecaApp {
 
     String[][] listOfMovies={{"Moana", "2017","Ron Clements and John Musker","7.6","available"},
-            {"Get Out", "2017","Jordan Peele","7.7","not available"}};
+            {"Get Out", "201","Jordan Peele","7.7","not available"}};
 
     String[][] listOfBooks = {{"Harry Potter", "JK Rowling","1997","available"},
             {"The Hobbit", "Tolkien","1937","not available"}};
+
+    //name, email address and phone number
+    String[][] listOfUsers = {{"Admin","123-4567","admin123","Joao","joao@admin.com","3333-3333","not logged"},
+            {"User","890-1234","user123","Maria","maria@user.com","4444-4444","logged"}};
 
 
 
@@ -19,7 +23,10 @@ public class BibliotecaApp {
             case 1: callListOfItems(listOfBooks); return "List of Books";
             case 2: callListOfItems(listOfMovies);return "List of Movies";
             case 3: return "Checkout a book";
-            case 4: System.exit(0);
+            case 4: return "Checkout a movie";
+            case 5: return "Return a book";
+            case 6: return "Return a movie";
+            case 7: System.exit(0);
             default: return "Invalid Option!";
     }
 }
@@ -77,5 +84,19 @@ public class BibliotecaApp {
         return listOfItems[itemCode][listOfItems[itemCode].length - 1];
 
 
+    }
+
+    public boolean Login(String userName, String password) {
+
+        boolean loogged=false;
+
+        for(int i=0;i<listOfUsers.length;i++){
+            for(int j=0;j<listOfUsers[i].length;j++){
+                if(userName.equals(listOfUsers[i][j]) && password.equals(listOfUsers[i][j+1]))
+                    loogged=true;
+            }
+        }
+
+        return loogged;
     }
 }
