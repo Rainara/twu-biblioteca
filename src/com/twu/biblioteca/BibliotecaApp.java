@@ -13,19 +13,6 @@ public class BibliotecaApp {
 
 
 
-
-    public static void main(){
-
-        System.out.println("Welcome to Biblioteca!\nMenu:\n1-List of Books\n2-Checkout Book\n3-Return Book\n3-Quit\nType your option:");
-        Scanner scanIn =new Scanner(System.in);
-        int option= scanIn.nextInt();
-        BibliotecaApp biblioteca=new BibliotecaApp();
-
-        biblioteca.Menu(option);
-
-    }
-
-
     public String Menu(int option) {
 
         switch (option){
@@ -52,14 +39,14 @@ public class BibliotecaApp {
     }
 
 
-    public String getBookDetails(int bookCode) {
+    public String getItemDetails(int bookCode, String[][] listOfItems) {
 
 
         StringBuilder bookDetail=new StringBuilder();
 
-        for(int i=1; i<listOfBooks[bookCode].length-1;i++)
+        for(int i = 1; i< listOfItems[bookCode].length-1; i++)
         {
-                bookDetail.append(listOfBooks[bookCode][i]).append("\n");
+                bookDetail.append(listOfItems[bookCode][i]).append("\n");
 
         }
 

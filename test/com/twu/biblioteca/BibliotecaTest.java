@@ -33,16 +33,19 @@ public class BibliotecaTest {
 
 
     @Test
-    public void testGetBookDetails(){
+    public void testGetItemDetails(){
 
         BibliotecaApp biblioteca=new BibliotecaApp();
 
         assertEquals("JK Rowling\n" +
-                "1997\n",biblioteca.getBookDetails(0));
+                "1997\n",biblioteca.getItemDetails(0,biblioteca.listOfBooks));
+
+        assertEquals("2017\n" +
+                "Ron Clements and John Musker\n" +
+                "7.6\n",biblioteca.getItemDetails(0,biblioteca.listOfMovies));
 
 
     }
-
 
 
     @Test
