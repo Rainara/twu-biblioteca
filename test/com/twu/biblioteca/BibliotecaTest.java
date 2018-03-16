@@ -1,6 +1,7 @@
 package com.twu.biblioteca;
 
 
+import org.junit.Rule;
 import org.junit.Test;
 import static org.junit.Assert.assertEquals;
 
@@ -59,7 +60,14 @@ public class BibliotecaTest {
 
         assertEquals("available",biblioteca.returnBook(1));
 
+    }
 
+    @Test
+    public void testListAvailableBooks(){
+
+        BibliotecaApp biblioteca=new BibliotecaApp();
+
+        assertEquals("Harry Potter\n",biblioteca.callListOfBooksApp());
 
     }
 

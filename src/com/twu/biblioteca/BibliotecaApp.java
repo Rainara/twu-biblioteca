@@ -39,7 +39,8 @@ public class BibliotecaApp {
 
 
         for(int i=0;i<listOfBooks.length;i++){
-            list.append(listOfBooks[i][0]).append("\n");
+            if(listOfBooks[i][listOfBooks.length+1].equals("available"))
+                list.append(listOfBooks[i][0]).append("\n");
         }
 
         System.out.print(list.toString());
