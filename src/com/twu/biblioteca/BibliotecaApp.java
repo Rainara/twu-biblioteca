@@ -65,4 +65,14 @@ public class BibliotecaApp {
     }
 
 
+    public String checkoutBook(int bookCode) {
+
+        if(listOfBooks[bookCode][listOfBooks.length+1].equals("available"))
+            listOfBooks[bookCode][listOfBooks.length+1]="not availanle";
+
+        return listOfBooks[bookCode][listOfBooks.length+1];
+    }
+
+
+    
 }

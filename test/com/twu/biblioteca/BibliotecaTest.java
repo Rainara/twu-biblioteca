@@ -42,4 +42,20 @@ public class BibliotecaTest {
     }
 
 
+
+    @Test
+    public void testCheckoutBook(){
+
+        BibliotecaApp biblioteca= new BibliotecaApp();
+
+        assertEquals("not available",biblioteca.checkoutBook(0));
+
+    }
+
+
+
+
+
+
+
 }
