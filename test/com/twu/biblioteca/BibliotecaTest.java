@@ -49,11 +49,12 @@ public class BibliotecaTest {
 
 
     @Test
-    public void testCheckoutBook(){
+    public void testCheckoutItem(){
 
         BibliotecaApp biblioteca= new BibliotecaApp();
 
-        assertEquals("not available",biblioteca.checkoutBook(0));
+        assertEquals("not available",biblioteca.checkoutItem(0,biblioteca.listOfBooks));
+        assertEquals("not available",biblioteca.checkoutItem(0,biblioteca.listOfMovies));
 
     }
 

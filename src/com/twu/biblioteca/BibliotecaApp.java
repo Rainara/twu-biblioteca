@@ -56,14 +56,14 @@ public class BibliotecaApp {
     }
 
 
-    public String checkoutBook(int bookCode) {
+    public String checkoutItem(int itemCode, String[][] listOfItems) {
 
-        if(listOfBooks[bookCode][listOfBooks.length+1].equals("available"))
-            listOfBooks[bookCode][listOfBooks.length+1]="not available";
+        if(listOfItems[itemCode][listOfItems[itemCode].length - 1].equals("available"))
+            listOfItems[itemCode][listOfItems[itemCode].length - 1]="not available";
         else
             return "That book is not available.";
 
-        return listOfBooks[bookCode][listOfBooks.length+1];
+        return listOfItems[itemCode][listOfItems[itemCode].length - 1];
     }
 
 
