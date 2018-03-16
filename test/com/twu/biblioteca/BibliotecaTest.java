@@ -13,22 +13,24 @@ public class BibliotecaTest {
         BibliotecaApp biblioteca=new BibliotecaApp();
 
         assertEquals("List of Books",biblioteca.Menu(1));
+        assertEquals("List of Movies", biblioteca.Menu(2));
 
 
     }
 
 
     @Test
-    public void testMenuListBooks(){
+    public void testMenuList(){
 
         BibliotecaApp biblioteca=new BibliotecaApp();
 
-        assertEquals("Harry Potter\n" +
-                        "The Hobbit\n"
-                ,biblioteca.callListOfBooksApp());
+        assertEquals("Harry Potter\n",biblioteca.callListOfItems(biblioteca.listOfBooks));
+
+        assertEquals("Moana\n",biblioteca.callListOfItems(biblioteca.listOfMovies));
 
 
     }
+
 
     @Test
     public void testGetBookDetails(){
@@ -37,7 +39,6 @@ public class BibliotecaTest {
 
         assertEquals("JK Rowling\n" +
                 "1997\n",biblioteca.getBookDetails(0));
-
 
 
     }
@@ -67,9 +68,12 @@ public class BibliotecaTest {
 
         BibliotecaApp biblioteca=new BibliotecaApp();
 
-        assertEquals("Harry Potter\n",biblioteca.callListOfBooksApp());
+        assertEquals("Harry Potter\n",biblioteca.callListOfItems(biblioteca.listOfBooks));
 
     }
+
+
+
 
 
 

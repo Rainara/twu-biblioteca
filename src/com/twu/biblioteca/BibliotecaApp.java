@@ -1,14 +1,20 @@
 package com.twu.biblioteca;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class BibliotecaApp {
 
+    String[][] listOfMovies={{"Moana", "2017","Ron Clements and John Musker","7.6","available"},
+            {"Get Out", "2017","Jordan Peele","7.7","not available"}};
+
     String[][] listOfBooks = {{"Harry Potter", "JK Rowling","1997","available"},
             {"The Hobbit", "Tolkien","1937","not available"}};
 
-    public static void main(String args) {
 
+
+
+    public static void main(){
 
         System.out.println("Welcome to Biblioteca!\nMenu:\n1-List of Books\n2-Checkout Book\n3-Return Book\n3-Quit\nType your option:");
         Scanner scanIn =new Scanner(System.in);
@@ -17,33 +23,30 @@ public class BibliotecaApp {
 
         biblioteca.Menu(option);
 
-
     }
 
 
     public String Menu(int option) {
 
-
-
         switch (option){
-            case 1: callListOfBooksApp(); return "List of Books";
-            case 2: return "Checkout a book";
-            case 3: System.exit(0);
+            case 1: callListOfItems(listOfBooks); return "List of Books";
+            case 2: callListOfItems(listOfMovies);return "List of Movies";
+            case 3: return "Checkout a book";
+            case 4: System.exit(0);
             default: return "Invalid Option!";
     }
 }
 
-    public String callListOfBooksApp() {
+    public String callListOfItems(String[][] listOfItems) {
 
         StringBuilder list=new StringBuilder("");
 
 
-        for(int i=0;i<listOfBooks.length;i++){
-            if(listOfBooks[i][listOfBooks.length+1].equals("available"))
-                list.append(listOfBooks[i][0]).append("\n");
-        }
+        for(int i=0;i<listOfItems.length;i++){
+            if(listOfItems[i][listOfItems[i].length - 1].equals("available"))
+                list.append(listOfItems[i][0]).append("\n");
 
-        System.out.print(list.toString());
+        }
 
         return list.toString();
     }
