@@ -7,7 +7,8 @@ import static org.junit.Assert.assertEquals;
 
 public class BibliotecaTest {
 
-    @Test
+    /*
+     @Test
     public void testMenuOptions() {
 
         BibliotecaApp biblioteca=new BibliotecaApp();
@@ -16,7 +17,8 @@ public class BibliotecaTest {
         assertEquals("List of Movies", biblioteca.Menu(2));
 
 
-    }
+    } */
+
 
 
     @Test
@@ -93,7 +95,7 @@ public class BibliotecaTest {
 
         BibliotecaApp biblioteca= new BibliotecaApp();
 
-        assertEquals("","");
+        assertEquals("",biblioteca.getUserDetails("123-4567"));
 
     }
 
