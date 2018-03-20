@@ -1,152 +1,199 @@
 package com.twu.biblioteca;
 
-import java.util.List;
-import java.util.Scanner;
+import java.io.IOException;
+import java.util.*;
 
 public class BibliotecaApp {
 
-    String[][] listOfMovies={{"Moana", "2017","Ron Clements and John Musker","7.6","available"},
-            {"Get Out", "201","Jordan Peele","7.7","not available"}};
 
-    String[][] listOfBooks = {{"Harry Potter", "JK Rowling","1997","available"},
-            {"The Hobbit", "Tolkien","1937","not available"}};
+    private List<Movie> movies;
+    private List<Book> books;
 
-    //name, email address and phone number
-    String[][] listOfUsers = {{"Admin","123-4567","admin123","Joao","joao@admin.com","3333-3333","not logged"},
-            {"User","890-1234","user123","Maria","maria@user.com","4444-4444","logged"}};
+    int movieCode, bookCode, option;
 
-    int movieCode,bookCode;
+    String userName, password;
+
+    Scanner sc = new Scanner(System.in);
 
 
+    BibliotecaApp() {
+        this.movies = Initializer.generateMovieLibrary();
+        this.books = Initializer.generateBookLibrary();
 
-    public String Menu() {
 
+    }
+
+    public void Menu() throws IOException {
         System.out.print("Menu: \n1-List of available books\n2-List of available movies \n3-Book details \n4-Movie details " +
                 "\n5-Checkout a book \n6-Checkout a movie \n7-Return a book\n8-Return a movie" +
-                "\n9-Quit \nEnter your Option: ");
+                "\n9-Login \n10-User Details\n11-Quit\nEnter your Option: ");
 
-        Scanner sc  = new Scanner(System.in);
+        option = sc.nextInt();
 
-        int option = sc.nextInt();
 
-        switch (option){
-            case 1: callListOfItems(listOfBooks); Menu();
+        switch (option) {
+            case 1:
+                print(this.books);
+                break;
+            case 2:
+                print(this.movies);
+                break;
+            case 3:
+//                TO STUDY - 20/21/22/23/24
+//                this.books.stream().map(p -> p.getCode()).collect(Collectors.toList()).forEach(p -> System.out.println(p));
+                System.out.print("Inform the book code: ");
+                bookCode = sc.nextInt();
+                try {
+                    System.out.println(getItemDetails(bookCode, this.books));
+                } catch (InvalidProductCodeException e) {
+                    System.out.println(e.getMessage());
+                    Menu();
+                }
+                break;
 
-            case 2: callListOfItems(listOfMovies);Menu();
+            case 4:
+                System.out.print("Inform the movie code: ");
+                movieCode = sc.nextInt();
+                try {
+                    System.out.println(getItemDetails(movieCode, this.movies));
 
-            case 3: System.out.print("Inform the book code: ");
-                Scanner s  = new Scanner(System.in);
-                bookCode = s.nextInt();
-                getItemDetails(bookCode,listOfBooks);
+                } catch (InvalidProductCodeException e) {
+                    System.out.println(e.getMessage());
+                    Menu();
+                }
+                break;
+
+            case 5:
+                System.out.print("Inform the book code to checkout: ");
+                bookCode = sc.nextInt();
+                try {
+                    System.out.println("The product "+checkoutItem(bookCode, this.books)+" was successfully checked out!");
+                } catch (NotAvailableProductException e) {
+                    System.out.println(e.getMessage());
+                    Menu();
+                } catch (InvalidProductCodeException e) {
+                    System.out.println(e.getMessage());
+                    Menu();
+                }
+                break;
+
+            case 6:
+                System.out.print("Inform the movie code to checkout: ");
+                movieCode = sc.nextInt();
+                try {
+                    System.out.println("The product "+checkoutItem(movieCode, this.movies)+" was successfully checked out!");
+                } catch (NotAvailableProductException e) {
+                    System.out.println(e.getMessage());
+                    Menu();
+                } catch (InvalidProductCodeException e) {
+                    System.out.println(e.getMessage());
+                    Menu();
+                }
+                break;
+
+            case 7:
+                System.out.print("Inform the book code to return: ");
+                bookCode = sc.nextInt();
+                try {
+                    returnItem(bookCode,this.books);
+                } catch (NotAvailableProductException e) {
+                    e.printStackTrace();
+                } catch (InvalidProductCodeException e) {
+                    e.printStackTrace();
+                }
+                // returnItem(bookCode, listOfBooks);
                 Menu();
 
-            case 4: System.out.print("Inform the movie code: ");
-                Scanner s2  = new Scanner(System.in);
-                movieCode = s2.nextInt();
-                getItemDetails(movieCode,listOfMovies);
+            case 8:
+                System.out.print("Inform the movie code to return: ");
+                movieCode = sc.nextInt();
+             //   returnItem(movieCode, listOfMovies);
                 Menu();
 
-            case 5: System.out.print("Inform the book code to checkout: ");
-                Scanner s3  = new Scanner(System.in);
-                bookCode = s3.nextInt();
-                checkoutItem(bookCode,listOfBooks);
+            case 9:
+                System.out.print("Inform your username: ");
+                userName = sc.next();
+                System.out.print("Inform your password: ");
+                password = sc.next();
+                Login(userName, password);
                 Menu();
 
-            case 6: System.out.print("Inform the movie code to checkout: ");
-                Scanner s4  = new Scanner(System.in);
-                movieCode = s4.nextInt();
-                checkoutItem(movieCode,listOfMovies);
-                return "Checkout a movie";
-
-            case 7: System.out.print("Inform the book code to return: ");
-                Scanner s5  = new Scanner(System.in);
-                bookCode = s5.nextInt();
-                returnItem(bookCode,listOfBooks);
+            case 10:
+                System.out.print("Your Details: ");
+                getUserDetails(userName);
                 Menu();
 
-            case 8: System.out.print("Inform the movie code to return: ");
-                Scanner s6  = new Scanner(System.in);
-                movieCode = s6.nextInt();
-                returnItem(movieCode,listOfMovies);
-                Menu();
-
-            case 9: System.exit(0);
-            default: return "Invalid Option!";
+            case 11:
+                System.exit(0);
+            default:
+                System.out.println("Invalid Option!");
+                break;
+        }
     }
-}
 
-    public String callListOfItems(String[][] listOfItems) {
+    private void print(List<? extends Product> products) {
 
-        StringBuilder list=new StringBuilder("");
-
-
-        for(int i=0;i<listOfItems.length;i++){
-            if(listOfItems[i][listOfItems[i].length - 1].equals("available"))
-                list.append(listOfItems[i][0]).append("\n");
+        for (Product p : products) {
+            if(p.getStatus().equals("available")){
+                System.out.println(p.toString());
+            }
 
         }
-        System.out.print(list);
 
-        return list.toString();
     }
 
+    public String getItemDetails(int productCode, List<? extends Product> products) throws InvalidProductCodeException {
 
-    public String getItemDetails(int bookCode, String[][] listOfItems) {
+        for(Product p: products){
+            if(p.getCode().equals(productCode)){
 
-
-        StringBuilder bookDetail=new StringBuilder();
-
-        for(int i = 1; i< listOfItems[bookCode].length-1; i++)
-        {
-                bookDetail.append(listOfItems[bookCode][i]).append("\n");
+                return p.toString();
+            }
 
         }
 
-        System.out.print(bookDetail.toString());
-
-        return bookDetail.toString();
+        throw new InvalidProductCodeException("Invalid Code!");
     }
 
+    public String checkoutItem(int productCode, List<? extends Product> products) throws NotAvailableProductException, InvalidProductCodeException {
 
-    public String checkoutItem(int itemCode, String[][] listOfItems) {
-
-        if(listOfItems[itemCode][listOfItems[itemCode].length - 1].equals("available"))
-            listOfItems[itemCode][listOfItems[itemCode].length - 1]="not available";
-        else
-            return "That book is not available.";
-
-        return listOfItems[itemCode][listOfItems[itemCode].length - 1];
-    }
-
-
-    public String returnItem(int itemCode, String[][] listOfItems) {
-
-        if(listOfItems[itemCode][listOfItems[itemCode].length - 1].equals("not available"))
-            listOfItems[itemCode][listOfItems[itemCode].length - 1]="available";
-        else
-            return "That book is not available to return.";
-
-        return listOfItems[itemCode][listOfItems[itemCode].length - 1];
-
-
-    }
-
-    public boolean Login(String userName, String password) {
-
-        boolean loogged=false;
-
-        for(int i=0;i<listOfUsers.length;i++){
-            for(int j=0;j<listOfUsers[i].length;j++){
-                if(userName.equals(listOfUsers[i][j]) && password.equals(listOfUsers[i][j+1]))
-                    loogged=true;
+        for(Product p: products){
+            if(p.getCode().equals(productCode) && p.getStatus().equals("available")){
+                p.setStatus("not available");
+                return p.toString();
+            } else {
+                throw new NotAvailableProductException("The product "+p.getName()+" is not available!");
             }
         }
+        throw new InvalidProductCodeException("Invalid Code!");
+    }
 
-        return loogged;
+    public String returnItem(int productCode, List<? extends Product> products) throws NotAvailableProductException, InvalidProductCodeException {
+
+        for(Product p: products){
+            if(p.getCode().equals(productCode) && p.getStatus().equals("not available")){
+                p.setStatus("available");
+                return p.toString();
+            }
+        }
+        throw new InvalidProductCodeException("Invalid Code!");
+    }
+
+
+
+    public String Login(String userName, String password) {
+
+        boolean loginStatus = false;
+
+
+        if (loginStatus = false) return "Invalid User!";
+
+
+        return "Welcome User: " + userName + "\n";
     }
 
     public String getUserDetails(String userName) {
 
-        return "";
+        return "sahuahsusah";
     }
 }
