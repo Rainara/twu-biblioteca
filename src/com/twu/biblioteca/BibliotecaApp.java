@@ -6,21 +6,18 @@ import java.util.*;
 public class BibliotecaApp {
 
 
+    int movieCode, bookCode, option;
+    String userName, password;
+    Scanner sc = new Scanner(System.in);
     private List<Movie> movies;
     private List<Book> books;
-
-    int movieCode, bookCode, option;
-
-    String userName, password;
-
-    Scanner sc = new Scanner(System.in);
+    private List<User> users;
 
 
     BibliotecaApp() {
         this.movies = Initializer.generateMovieLibrary();
         this.books = Initializer.generateBookLibrary();
-
-
+        this.users = Initializer.libraryUsers();
     }
 
     public void Menu() throws IOException {
@@ -115,7 +112,11 @@ public class BibliotecaApp {
                 userName = sc.next();
                 System.out.print("Inform your password: ");
                 password = sc.next();
-                Login(userName, password);
+                try {
+                    Login(userName, password);
+                } catch (InvalidUserLoginException e) {
+                    e.printStackTrace();
+                }
                 Menu();
 
             case 10:
@@ -181,15 +182,18 @@ public class BibliotecaApp {
 
 
 
-    public String Login(String userName, String password) {
+    public boolean Login(String userName, String password) throws InvalidUserLoginException {
 
         boolean loginStatus = false;
 
-
-        if (loginStatus = false) return "Invalid User!";
-
-
-        return "Welcome User: " + userName + "\n";
+        for(User u:users){
+            if(u.getUserName().equals(userName) && u.getPassword().equals(password)){
+                loginStatus=true;
+                System.out.println("user id: "+u.getUserName()+" is logged!");
+                return loginStatus;
+            }
+        }
+        throw new InvalidUserLoginException("Invalid user credentials!");
     }
 
     public String getUserDetails(String userName) {

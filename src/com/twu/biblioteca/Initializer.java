@@ -21,4 +21,14 @@ public class Initializer {
         return Arrays.asList(harryPotter, theHobbit);
 
     };
+
+    public static List<User> libraryUsers(){
+
+        User admin = new User("123-4567", "adm@biblioteca.com", "127, Av Jhon,Miami","admin123");
+        User user = new User("890-1234","user@biblioteca.com","2, St Elizabeth,", "user123");
+
+        return Arrays.asList(admin,user);
+
+    };
+
 }

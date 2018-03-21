@@ -4,6 +4,9 @@ package com.twu.biblioteca;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+
+import javax.jws.soap.SOAPBinding;
+
 import static org.junit.Assert.assertEquals;
 
 public class BibliotecaTest {
@@ -70,6 +73,22 @@ public class BibliotecaTest {
         assertEquals(book.toString(),biblioteca.returnItem(1,Initializer.generateBookLibrary()));
     }
 
+    @Test
+    public void whenTryingToLoginMustAllowIt() throws InvalidUserLoginException {
+
+        BibliotecaApp biblioteca = new BibliotecaApp();
+        assertEquals(true,biblioteca.Login("890-1234","user123"));
+    }
+
+    @Test(expected = InvalidUserLoginException.class)
+    public void whenTryingWithInvalidCredentialsMustThrowException() throws InvalidUserLoginException {
+
+        BibliotecaApp biblioteca = new BibliotecaApp();
+        assertEquals(true,biblioteca.Login("890-1234","user12"));
+
+    }
+
+
 
 
 
@@ -107,15 +126,6 @@ public class BibliotecaTest {
     }
 
 
-    @Test
-    public void testUserLogin(){
-
-        BibliotecaApp biblioteca= new BibliotecaApp();
-
-        assertEquals("Welcome User: 123-4567\n",biblioteca.Login("123-4567","admin123"));
-
-
-    }
 
     @Test
     public void testUserInformation(){
