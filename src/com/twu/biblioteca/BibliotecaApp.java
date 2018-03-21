@@ -7,7 +7,7 @@ public class BibliotecaApp {
 
 
     int movieCode, bookCode, option;
-    String userName, password;
+    String userId, password;
     Scanner sc = new Scanner(System.in);
     private List<Movie> movies;
     private List<Book> books;
@@ -109,11 +109,11 @@ public class BibliotecaApp {
 
             case 9:
                 System.out.print("Inform your username: ");
-                userName = sc.next();
+                userId = sc.next();
                 System.out.print("Inform your password: ");
                 password = sc.next();
                 try {
-                    Login(userName, password);
+                    Login(userId, password);
                 } catch (InvalidUserLoginException e) {
                     e.printStackTrace();
                 }
@@ -121,7 +121,11 @@ public class BibliotecaApp {
 
             case 10:
                 System.out.print("Your Details: ");
-                getUserDetails(userName);
+                try {
+                    getUserDetails(userId);
+                } catch (InvalidUserLoginException e) {
+                    e.printStackTrace();
+                }
                 Menu();
 
             case 11:
@@ -180,24 +184,28 @@ public class BibliotecaApp {
         throw new InvalidProductCodeException("Invalid Code!");
     }
 
-
-
-    public boolean Login(String userName, String password) throws InvalidUserLoginException {
+    public boolean Login(String userId, String password) throws InvalidUserLoginException {
 
         boolean loginStatus = false;
 
         for(User u:users){
-            if(u.getUserName().equals(userName) && u.getPassword().equals(password)){
+            if(u.getUserId().equals(userId) && u.getPassword().equals(password)){
                 loginStatus=true;
-                System.out.println("user id: "+u.getUserName()+" is logged!");
+                System.out.println("user id: "+u.getUserId()+" is logged!");
                 return loginStatus;
             }
         }
         throw new InvalidUserLoginException("Invalid user credentials!");
     }
 
-    public String getUserDetails(String userName) {
+    public String getUserDetails(String userId) throws InvalidUserLoginException {
 
-        return "sahuahsusah";
+        for (User u:users){
+            if(u.getUserId().equals(userId)){
+                return u.toString();
+            }
+        }
+
+        throw new InvalidUserLoginException("Invalid user credentials!");
     }
 }

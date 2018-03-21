@@ -11,32 +11,6 @@ import static org.junit.Assert.assertEquals;
 
 public class BibliotecaTest {
 
-    /*
-     @Test
-    public void testMenuOptions() {
-
-        BibliotecaApp biblioteca=new BibliotecaApp();
-
-        assertEquals("List of Books",biblioteca.Menu(1));
-        assertEquals("List of Movies", biblioteca.Menu(2));
-
-
-    } */
-
-
-
-    /*@Test
-    public void testMenuList(){
-
-        BibliotecaApp biblioteca=new BibliotecaApp();
-
-        assertEquals("Harry Potter\n",biblioteca.callListOfItems(biblioteca.listOfBooks));
-
-        assertEquals("Moana\n",biblioteca.callListOfItems(biblioteca.listOfMovies));
-
-
-    }*/
-
     @Test
     public void whenPassingAValidCodeMustReturnAnExistentProduct() throws InvalidProductCodeException {
         BibliotecaApp biblioteca = new BibliotecaApp();
@@ -75,74 +49,22 @@ public class BibliotecaTest {
 
     @Test
     public void whenTryingToLoginMustAllowIt() throws InvalidUserLoginException {
-
         BibliotecaApp biblioteca = new BibliotecaApp();
         assertEquals(true,biblioteca.Login("890-1234","user123"));
     }
 
     @Test(expected = InvalidUserLoginException.class)
     public void whenTryingWithInvalidCredentialsMustThrowException() throws InvalidUserLoginException {
-
         BibliotecaApp biblioteca = new BibliotecaApp();
         assertEquals(true,biblioteca.Login("890-1234","user12"));
-
-    }
-
-
-
-
-
-
-    @Test
-    @Ignore
-    public void whenCheckoutAValidItem(){
-
-        BibliotecaApp biblioteca= new BibliotecaApp();
-
-       // assertEquals("not available",biblioteca.checkoutItem(0,biblioteca.listOfBooks));
-        //assertEquals("not available",biblioteca.checkoutItem(0,biblioteca.listOfMovies));
-
     }
 
     @Test
-    @Ignore
-    public void testReturnItem(){
-
+    public void whenUserCheckTheDetailsMustShowThem() throws InvalidUserLoginException {
         BibliotecaApp biblioteca = new BibliotecaApp();
-
-      //  assertEquals("available",biblioteca.returnItem(1,biblioteca.listOfBooks));
-       // assertEquals("available",biblioteca.returnItem(1,biblioteca.listOfMovies));
-
+        User user = new User("890-1234","user@biblioteca.com","2, St Elizabeth,", "user123");
+        assertEquals(user.toString(),biblioteca.getUserDetails("890-1234"));
     }
-
-    @Test
-    @Ignore
-    public void testListAvailableBooks(){
-
-        BibliotecaApp biblioteca=new BibliotecaApp();
-
-        //assertEquals("Harry Potter\n",biblioteca.callListOfItems(biblioteca.listOfBooks));
-
-    }
-
-
-
-    @Test
-    public void testUserInformation(){
-
-        BibliotecaApp biblioteca= new BibliotecaApp();
-
-        assertEquals("",biblioteca.getUserDetails("123-4567"));
-
-    }
-
-
-
-
-
-
-
-
 
 
 }

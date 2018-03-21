@@ -3,23 +3,33 @@ package com.twu.biblioteca;
 public class User {
 
     //name, email address and phone number
-    private String userName;
+    private String userId;
     private String email;
     private String address;
     private String password;
 
-    public User(String userName, String email, String address, String password) {
-        this.userName = userName;
+    public User(String userId, String email, String address, String password) {
+        this.userId = userId;
         this.email = email;
         this.address = address;
         this.password = password;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getUserId() {
+        return userId;
     }
 
     public String getPassword() {
         return password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "userId='" + userId + '\'' +
+                ", email='" + email + '\'' +
+                ", address='" + address + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
