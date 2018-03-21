@@ -20,75 +20,51 @@ public class BibliotecaApp {
         this.users = Initializer.libraryUsers();
     }
 
-    public void Menu() throws IOException {
-        System.out.print("Menu: \n1-List of available books\n2-List of available movies \n3-Book details \n4-Movie details " +
-                "\n5-Checkout a book \n6-Checkout a movie \n7-Return a book\n8-Return a movie" +
-                "\n9-Login \n10-User Details\n11-Quit\nEnter your Option: ");
+    public void menuLogged(String user){
+        System.out.print("Menu: \n1-My Details\n2-Checkout a book \n3-Checkout a movie \n4-Return a book\n5-Return a movie" +
+                "\n6-Logout \n7-Quit \nEnter your Option: ");
 
         option = sc.nextInt();
 
-
         switch (option) {
+
             case 1:
-                print(this.books);
+                System.out.print("Your Details: ");
+                try {
+                    getUserDetails(userId);
+                } catch (InvalidUserLoginException e) {
+                    e.printStackTrace();
+                }
+                menuLogged(user);
                 break;
+
             case 2:
-                print(this.movies);
-                break;
-            case 3:
-//                TO STUDY - 20/21/22/23/24
-//                this.books.stream().map(p -> p.getCode()).collect(Collectors.toList()).forEach(p -> System.out.println(p));
-                System.out.print("Inform the book code: ");
-                bookCode = sc.nextInt();
-                try {
-                    System.out.println(getItemDetails(bookCode, this.books));
-                } catch (InvalidProductCodeException e) {
-                    System.out.println(e.getMessage());
-                    Menu();
-                }
-                break;
-
-            case 4:
-                System.out.print("Inform the movie code: ");
-                movieCode = sc.nextInt();
-                try {
-                    System.out.println(getItemDetails(movieCode, this.movies));
-
-                } catch (InvalidProductCodeException e) {
-                    System.out.println(e.getMessage());
-                    Menu();
-                }
-                break;
-
-            case 5:
                 System.out.print("Inform the book code to checkout: ");
                 bookCode = sc.nextInt();
                 try {
                     System.out.println("The product "+checkoutItem(bookCode, this.books)+" was successfully checked out!");
                 } catch (NotAvailableProductException e) {
                     System.out.println(e.getMessage());
-                    Menu();
                 } catch (InvalidProductCodeException e) {
                     System.out.println(e.getMessage());
-                    Menu();
                 }
+                menuLogged(user);
                 break;
 
-            case 6:
+            case 3:
                 System.out.print("Inform the movie code to checkout: ");
                 movieCode = sc.nextInt();
                 try {
                     System.out.println("The product "+checkoutItem(movieCode, this.movies)+" was successfully checked out!");
                 } catch (NotAvailableProductException e) {
                     System.out.println(e.getMessage());
-                    Menu();
                 } catch (InvalidProductCodeException e) {
                     System.out.println(e.getMessage());
-                    Menu();
                 }
+                menuLogged(user);
                 break;
 
-            case 7:
+            case 4:
                 System.out.print("Inform the book code to return: ");
                 bookCode = sc.nextInt();
                 try {
@@ -98,42 +74,115 @@ public class BibliotecaApp {
                 } catch (InvalidProductCodeException e) {
                     e.printStackTrace();
                 }
-                // returnItem(bookCode, listOfBooks);
-                Menu();
+                menuLogged(user);
+                break;
 
-            case 8:
+            case 5:
                 System.out.print("Inform the movie code to return: ");
                 movieCode = sc.nextInt();
-             //   returnItem(movieCode, listOfMovies);
-                Menu();
-
-            case 9:
-                System.out.print("Inform your username: ");
-                userId = sc.next();
-                System.out.print("Inform your password: ");
-                password = sc.next();
                 try {
-                    Login(userId, password);
-                } catch (InvalidUserLoginException e) {
+                    returnItem(movieCode, this.movies);
+                } catch (NotAvailableProductException e) {
+                    e.printStackTrace();
+                } catch (InvalidProductCodeException e) {
                     e.printStackTrace();
                 }
-                Menu();
+                menuLogged(user);
+                break;
 
-            case 10:
+            case 6:
+                System.out.println("Logged out!");
+                menuNotLogged();
+                break;
+
+            case 7:
                 System.out.print("Your Details: ");
                 try {
                     getUserDetails(userId);
                 } catch (InvalidUserLoginException e) {
                     e.printStackTrace();
                 }
-                Menu();
+                menuLogged(user);
+                break;
 
-            case 11:
+            case 8:
                 System.exit(0);
+
             default:
                 System.out.println("Invalid Option!");
+                menuLogged(user);
+                break;
+
+        }
+
+
+
+
+    }
+
+    public void menuNotLogged(){
+
+        System.out.print("Menu: \n1-List of available books\n2-List of available movies \n3-Book details \n4-Movie details " +
+                "\n5-Login \n6-Quit \nEnter your Option: ");
+
+        option = sc.nextInt();
+
+        switch (option){
+            case 1:
+                print(this.books);
+                menuNotLogged();
+                break;
+            case 2:
+                print(this.movies);
+                menuNotLogged();
+                break;
+            case 3:
+                System.out.print("Inform the book code: ");
+                bookCode = sc.nextInt();
+                try {
+                    System.out.println(getItemDetails(bookCode, this.books));
+                    menuNotLogged();
+                } catch (InvalidProductCodeException e) {
+                    System.out.println(e.getMessage());
+                    menuNotLogged();
+                }
+                break;
+
+            case 4:
+                System.out.print("Inform the movie code: ");
+                movieCode = sc.nextInt();
+                try {
+                    System.out.println(getItemDetails(movieCode, this.movies));
+                    menuNotLogged();
+
+                } catch (InvalidProductCodeException e) {
+                    System.out.println(e.getMessage());
+                    menuNotLogged();
+                }
+                break;
+
+            case 5:
+                System.out.print("Inform your username: ");
+                userId = sc.next();
+                System.out.print("Inform your password: ");
+                password = sc.next();
+                try {
+                    String user = Login(userId, password);
+                    menuLogged(user);
+
+                } catch (InvalidUserLoginException e) {
+                    e.printStackTrace();
+                    menuNotLogged();
+                }
+                break;
+
+            case 6: System.exit(0);
+
+            default: System.out.println("Invalid Option!");
                 break;
         }
+
+
     }
 
     private void print(List<? extends Product> products) {
@@ -184,7 +233,7 @@ public class BibliotecaApp {
         throw new InvalidProductCodeException("Invalid Code!");
     }
 
-    public boolean Login(String userId, String password) throws InvalidUserLoginException {
+    public String Login(String userId, String password) throws InvalidUserLoginException {
 
         boolean loginStatus = false;
 
@@ -192,7 +241,7 @@ public class BibliotecaApp {
             if(u.getUserId().equals(userId) && u.getPassword().equals(password)){
                 loginStatus=true;
                 System.out.println("user id: "+u.getUserId()+" is logged!");
-                return loginStatus;
+                return u.getUserId();
             }
         }
         throw new InvalidUserLoginException("Invalid user credentials!");

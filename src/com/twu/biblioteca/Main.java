@@ -9,9 +9,7 @@ public class Main {
 
         BibliotecaApp biblioteca= new BibliotecaApp();
 
-
-
-        biblioteca.Menu();
+        biblioteca.menuNotLogged();
 
     }
 }
