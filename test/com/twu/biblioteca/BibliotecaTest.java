@@ -1,9 +1,12 @@
 package com.twu.biblioteca;
 
 
+import org.junit.Assert;
 import org.junit.Ignore;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mockito;
 
 import javax.jws.soap.SOAPBinding;
 
@@ -11,18 +14,22 @@ import static org.junit.Assert.assertEquals;
 
 public class BibliotecaTest {
 
+
+
     @Test
     public void whenPassingAValidCodeMustReturnAnExistentProduct() throws InvalidProductCodeException {
-        BibliotecaApp biblioteca = new BibliotecaApp();
+
+        Product product = Mockito.mock(Product.class, Mockito.CALLS_REAL_METHODS);
         Book book = new Book(0, "Harry Potter", 1997, "available", "JK Rowling");
-        assertEquals(book.toString(), biblioteca.getItemDetails(0, Initializer.generateBookLibrary()));
+        assertEquals(book.toString(), product.getProductDetails(0,Initializer.generateBookLibrary()));
     }
 
     @Test(expected = InvalidProductCodeException.class)
     public void whenPassingAnInvalidCodeMustThrowException() throws InvalidProductCodeException, NotAvailableProductException {
+        Product product = Mockito.mock(Product.class, Mockito.CALLS_REAL_METHODS);
         BibliotecaApp biblioteca = new BibliotecaApp();
         Book book = new Book(0, "Harry Potter", 1997, "available", "JK Rowling");
-        assertEquals(book.toString(),biblioteca.getItemDetails(5,Initializer.generateBookLibrary()));
+        assertEquals(book.toString(),product.getProductDetails(5,Initializer.generateBookLibrary()));
         assertEquals(book.toString(),biblioteca.checkoutItem(6,Initializer.generateBookLibrary()));
     }
 
@@ -62,7 +69,7 @@ public class BibliotecaTest {
     @Test
     public void whenUserCheckTheDetailsMustShowThem() throws InvalidUserLoginException {
         BibliotecaApp biblioteca = new BibliotecaApp();
-        User user = new User("890-1234","user@biblioteca.com","2, St Elizabeth,", "user123");
+        User user = new User("890-1234","Joao","user@biblioteca.com","2, St Elizabeth,", "user123");
         assertEquals(user.toString(),biblioteca.getUserDetails("890-1234"));
     }
 
