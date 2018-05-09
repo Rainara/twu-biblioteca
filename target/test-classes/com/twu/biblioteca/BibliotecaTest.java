@@ -68,6 +68,7 @@ public class BibliotecaTest {
 
     @Test
     public void whenUserCheckTheDetailsMustShowThem() throws InvalidUserLoginException {
+
         User user = new User("890-1234","Joao","user@biblioteca.com","2, St Elizabeth,", "user123");
         assertEquals(user.toString(),user.getUserDetails("890-1234",Initializer.libraryUsers()));
     }
