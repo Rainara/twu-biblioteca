@@ -1,0 +1,16 @@
+Instructions to Run BibliotecaApp
+=================================================
+1. A not logged user will get the initial menu, where it will be possible to chose the following options:
+
+        - See the list of available books or movies (by pressing keys 1 for books and 2 for movies)
+        - See the details of a book or a movie by informing its code (by pressing keys 3 for books and 4 for movies)
+        - Login into the system by informing its username(format xxx-xxxx) and its password (by pressing key 5)
+        - Quit the system (by pressing key 6)
+
+2. A logged user will get the logged menu, where it will be possible to chose the following options:
+
+        - See the user's details (by pressing key 1)
+        - Checkout a book or a movie by informing its code (by pressing keys on options 2 for books and 3 for movies)
+        - Return a book or a movie by informing its code (by pressing keys on options 4 for books and 5 for movies)
+        - Logout from the system (by pressing key 6)
+        - Quit the system (by pressing key 7)

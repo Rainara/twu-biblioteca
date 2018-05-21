@@ -9,6 +9,9 @@ public abstract class Product {
     private Integer year;
     private String status;
 
+    public Product() {
+    }
+
     public Product(Integer code, String name, Integer year, String status) {
         this.code = code;
         this.name = name;
@@ -44,29 +47,6 @@ public abstract class Product {
         return name;
     }
 
-    public void print(List<? extends Product> products) {
-
-        for (Product p : products) {
-            if(p.getStatus().equals("available")){
-                System.out.println(p.toString());
-            }
-
-        }
-
-    }
-
-    public String getProductDetails(int productCode, List<? extends Product> products) throws InvalidProductCodeException {
-
-        for(Product p: products){
-            if(p.getCode().equals(productCode)){
-
-                return p.toString();
-            }
-
-        }
-
-        throw new InvalidProductCodeException("Invalid Code!");
-    }
 
 };
 

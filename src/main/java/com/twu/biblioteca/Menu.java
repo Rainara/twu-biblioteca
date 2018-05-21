@@ -8,10 +8,9 @@ public class Menu {
     private int movieCode, bookCode, option;
     private String userId, password;
     private Scanner sc = new Scanner(System.in);
-    private BibliotecaApp bibliotecaApp;
-    private Product product;
-    private User userBiblioteca;
-    private Login login;
+    private BibliotecaApp bibliotecaApp = new BibliotecaApp();
+    private User userBiblioteca = new User();
+    private Login login = new Login();
     private List<Movie> movies;
     private List<Book> books;
     private List<User> users;
@@ -20,16 +19,15 @@ public class Menu {
         this.movies = Initializer.generateMovieLibrary();
         this.books = Initializer.generateBookLibrary();
         this.users = Initializer.libraryUsers();
+
     }
 
-    public void menuLogged(String user){
+    public void menuLogged(){
 
-        System.out.print("Welcome "+ user +" to the Biblioteca!\nMenu: \n1-My Details\n2-Checkout a book \n3-Checkout a movie \n4-Return a book\n5-Return a movie" +
+        System.out.print("\nMenu: \n1-My Details\n2-Checkout a book \n3-Checkout a movie \n4-Return a book\n5-Return a movie" +
                 "\n6-Logout \n7-Quit \nEnter your Option: ");
 
         option = sc.nextInt();
-
-
 
         switch (option) {
 
@@ -40,7 +38,7 @@ public class Menu {
                 } catch (InvalidUserLoginException e) {
                     e.printStackTrace();
                 }
-                menuLogged(user);
+                menuLogged();
                 break;
 
             case 2:
@@ -53,7 +51,7 @@ public class Menu {
                 } catch (InvalidProductCodeException e) {
                     System.out.println(e.getMessage());
                 }
-                menuLogged(user);
+                menuLogged();
                 break;
 
             case 3:
@@ -66,7 +64,7 @@ public class Menu {
                 } catch (InvalidProductCodeException e) {
                     System.out.println(e.getMessage());
                 }
-                menuLogged(user);
+                menuLogged();
                 break;
 
             case 4:
@@ -79,7 +77,7 @@ public class Menu {
                 } catch (InvalidProductCodeException e) {
                     e.printStackTrace();
                 }
-                menuLogged(user);
+                menuLogged();
                 break;
 
             case 5:
@@ -92,7 +90,7 @@ public class Menu {
                 } catch (InvalidProductCodeException e) {
                     e.printStackTrace();
                 }
-                menuLogged(user);
+                menuLogged();
                 break;
 
             case 6:
@@ -107,7 +105,7 @@ public class Menu {
                 } catch (InvalidUserLoginException e) {
                     e.printStackTrace();
                 }
-                menuLogged(user);
+                menuLogged();
                 break;
 
             case 8:
@@ -115,13 +113,10 @@ public class Menu {
 
             default:
                 System.out.println("Invalid Option!");
-                menuLogged(user);
+                menuLogged();
                 break;
 
         }
-
-
-
 
     }
 
@@ -134,18 +129,18 @@ public class Menu {
 
         switch (option){
             case 1:
-                product.print(this.books);
+                bibliotecaApp.print(this.books);
                 menuNotLogged();
                 break;
             case 2:
-                product.print(this.movies);
+                bibliotecaApp.print(this.movies);
                 menuNotLogged();
                 break;
             case 3:
                 System.out.print("Inform the book code: ");
                 bookCode = sc.nextInt();
                 try {
-                    System.out.println(product.getProductDetails(bookCode, this.books));
+                    System.out.println(bibliotecaApp.getProductDetails(bookCode, this.books));
                     menuNotLogged();
                 } catch (InvalidProductCodeException e) {
                     System.out.println(e.getMessage());
@@ -157,7 +152,7 @@ public class Menu {
                 System.out.print("Inform the movie code: ");
                 movieCode = sc.nextInt();
                 try {
-                    System.out.println(product.getProductDetails(movieCode, this.movies));
+                    System.out.println(bibliotecaApp.getProductDetails(movieCode, this.movies));
                     menuNotLogged();
 
                 } catch (InvalidProductCodeException e) {
@@ -167,12 +162,13 @@ public class Menu {
                 break;
 
             case 5:
-                System.out.print("Inform your username: ");
+                System.out.print("Inform your username (xxx-xxxx): ");
                 userId = sc.next();
                 System.out.print("Inform your password: ");
                 password = sc.next();
                 try {
-                    String user = login.Login(userId, password,this.users);
+                    login.Login(userId, password,this.users);
+                        menuLogged();
 
 
                 } catch (InvalidUserLoginException e) {
@@ -189,6 +185,8 @@ public class Menu {
 
 
     }
+
+
 
 
 

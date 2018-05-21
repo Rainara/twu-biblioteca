@@ -8,9 +8,35 @@ public class BibliotecaApp {
 
 
     private Menu menu;
+
     BibliotecaApp(){
 
     }
+
+    public void print(List<? extends Product> products) {
+
+        for (Product p : products) {
+            if(p.getStatus().equals("available")){
+                System.out.println(p.toString());
+            }
+
+        }
+
+    }
+
+    public String getProductDetails(int productCode, List<? extends Product> products) throws InvalidProductCodeException {
+
+        for(Product p: products){
+            if(p.getCode().equals(productCode)){
+
+                return p.toString();
+            }
+
+        }
+
+        throw new InvalidProductCodeException("Invalid Code!");
+    }
+
 
 
     public String checkoutItem(int productCode, List<? extends Product> products) throws NotAvailableProductException, InvalidProductCodeException {

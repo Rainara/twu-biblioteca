@@ -11,6 +11,9 @@ import org.mockito.Mockito;
 import javax.jws.soap.SOAPBinding;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Mockito.atLeastOnce;
+import static org.mockito.Mockito.verify;
+import static org.mockito.internal.verification.VerificationModeFactory.times;
 
 public class BibliotecaTest {
 
@@ -19,18 +22,17 @@ public class BibliotecaTest {
     @Test
     public void whenPassingAValidCodeMustReturnAnExistentProduct() throws InvalidProductCodeException {
 
-        Product product = Mockito.mock(Product.class, Mockito.CALLS_REAL_METHODS);
+        BibliotecaApp bibliotecaApp = Mockito.mock(BibliotecaApp.class, Mockito.CALLS_REAL_METHODS);
         Book book = new Book(0, "Harry Potter", 1997, "available", "JK Rowling");
-        assertEquals(book.toString(), product.getProductDetails(0,Initializer.generateBookLibrary()));
+        assertEquals(book.toString(), bibliotecaApp.getProductDetails(0,Initializer.generateBookLibrary()));
     }
 
     @Test(expected = InvalidProductCodeException.class)
     public void whenPassingAnInvalidCodeMustThrowException() throws InvalidProductCodeException, NotAvailableProductException {
-        Product product = Mockito.mock(Product.class, Mockito.CALLS_REAL_METHODS);
-        BibliotecaApp biblioteca = new BibliotecaApp();
+        BibliotecaApp bibliotecaApp = Mockito.mock(BibliotecaApp.class, Mockito.CALLS_REAL_METHODS);
         Book book = new Book(0, "Harry Potter", 1997, "available", "JK Rowling");
-        assertEquals(book.toString(),product.getProductDetails(5,Initializer.generateBookLibrary()));
-        assertEquals(book.toString(),biblioteca.checkoutItem(6,Initializer.generateBookLibrary()));
+        assertEquals(book.toString(),bibliotecaApp.getProductDetails(5,Initializer.generateBookLibrary()));
+        assertEquals(book.toString(),bibliotecaApp.checkoutItem(6,Initializer.generateBookLibrary()));
     }
 
     @Test
@@ -50,13 +52,15 @@ public class BibliotecaTest {
     @Test
     public void whenPassingANotAvailableProductMustAcceptReturn() throws InvalidProductCodeException, NotAvailableProductException {
         BibliotecaApp biblioteca = new BibliotecaApp();
-        Book book=new Book(1, "The Hobbit", 1937, "available", "Tolkien");
-        assertEquals(book.toString(),biblioteca.returnItem(1,Initializer.generateBookLibrary()));
+        Book book = new Book(1, "The Hobbit", 1937, "available", "Tolkien");
+        assertEquals(book.toString(), biblioteca.returnItem(1, Initializer.generateBookLibrary()));
+
     }
 
     @Test
     public void whenTryingToLoginMustAllowIt() throws InvalidUserLoginException {
         Login login = new Login();
+
         assertEquals(true,login.Login("890-1234","user123",Initializer.libraryUsers()));
     }
 

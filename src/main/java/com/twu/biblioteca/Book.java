@@ -4,6 +4,8 @@ public class Book extends Product {
 
     private String writer;
 
+    public Book() {
+    }
 
     public Book(Integer code, String name, Integer year, String status, String writer) {
         super(code, name, year, status);
